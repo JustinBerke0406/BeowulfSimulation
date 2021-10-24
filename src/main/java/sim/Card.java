@@ -13,11 +13,11 @@ public enum Card {
 
   private int weight;
 
-  private Card(int weight) {
+  Card(int weight) {
     this.weight = weight;
   }
 
-  public Card pickCard(boolean isBeowulf) {
+  public static Card pickCard(boolean isBeowulf) {
     int number = (int) (Math.random() * 20);
 
     if (isBeowulf) {

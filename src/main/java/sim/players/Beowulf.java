@@ -1,9 +1,11 @@
-package players;
+package sim.players;
 
-import java.util.PriorityQueue;
+import sim.Card;
+import sim.Game;
+import sim.Stats;
 
 public class Beowulf extends Player {
-    public static final int startingSoldiers = 30;
+    public static final int startingSoldiers = 31;
 
     public Beowulf(Game game) {
         super(startingSoldiers, game);
@@ -21,12 +23,17 @@ public class Beowulf extends Player {
 
         if (card.equals(Card.GIANTS_SWORD)) damage *= 2;
         else if (card.equals(Card.THREE_SOLDIERS)) {
-            if (game.defenses > 0) {
-              if (health < 40) {
-                health = Math.min(40, health + 3);
+            Game game = this.getGame();
+            if (game.getDefenses() > 0) {
+              if (getHealth() < 40) {
+                setHealth(Math.min(40, getHealth() + 3));
+                Stats.soldiersGained += 3;
+
+                if (getHealth() == 40) Stats.reachedHpCap++;
               }
               else {
                 addCard(card);
+                Stats.reachedHpCap++;
               }
             }
         }

@@ -1,5 +1,8 @@
 package sim;
 
+import sim.players.Beowulf;
+import sim.players.Grendel;
+
 public class Game {
   private int defenses;
 
@@ -23,11 +26,26 @@ public class Game {
 
   public void begin() {
     while (!beowulf.isDead() && !grendel.isDead()) {
-      beowulf.takeTurn(grendel, beowulf.peekTopCard(), 1);
-      grendel.takeTurn(beowulf, grendel.peekTopCard(), 1);
+      int chance = (int) (Math.random() * 2);
+
+      if (chance == 0)
+        beowulf.takeTurn(grendel, beowulf.peekTopCard(), 100);
+      else
+        beowulf.takeTurn(grendel, Card.EMPTY, 1);
+
+      chance = (int) (Math.random() * 2);
+
+      if (chance == 0)
+        grendel.takeTurn(beowulf, grendel.peekTopCard(), 100);
+      else
+        grendel.takeTurn(beowulf, Card.EMPTY, 1);
+
+      Stats.totalRounds += 1;
     }
 
-    if (grendel.isDead()) Stats.beowulfWin++;
-    else Stats.grendelWin++;
+    if (defenses <= 0) Stats.allDefensesDestroyed++;
+
+    if (grendel.isDead()) Stats.beowulfWins++;
+    else Stats.grendelWins++;
   }
 }

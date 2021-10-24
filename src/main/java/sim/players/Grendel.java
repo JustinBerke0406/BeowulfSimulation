@@ -1,7 +1,11 @@
-package players;
+package sim.players;
+
+import sim.Card;
+import sim.Game;
+import sim.Stats;
 
 public class Grendel extends Player {
-  public static final int startingHealth = 35;
+  public static final int startingHealth = 39;
 
     public Grendel(Game game) {
         super(startingHealth, game);
@@ -19,8 +23,9 @@ public class Grendel extends Player {
 
         if (card.equals(Card.DOUBLE_DAMAGE)) damage *= 2;
         else if (card.equals(Card.LOSE_DEFENSE)) {
-            if (game.defenses > 0) {
-              game.defenses--;
+            if (getGame().getDefenses() > 0) {
+              getGame().setDefenses(getGame().getDefenses()-1);
+              Stats.totalDefensesDestroyed++;
             }
         }
       }

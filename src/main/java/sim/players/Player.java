@@ -97,4 +97,8 @@ public abstract class Player {
 
     if (dice > 3) addCard(pickCard());
   }
+
+  public Game getGame() {
+    return game;
+  }
 }
